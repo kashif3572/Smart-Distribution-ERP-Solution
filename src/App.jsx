@@ -10,10 +10,11 @@ import SalesDashboard from './pages/sales-dashboard'
 import RiderDashboard from './pages/rider-dashboard'
 import OrderPage from "./pages/Orders";
 import AddProduct from './pages/AddProduct'
-import SalesOrder from './pages/SalesOrder'  // <-- Add this import
+import SalesOrder from './pages/SalesOrder'
+import AddEmployeeForm from './pages/AddEmployeeForm';
 
 import { AuthProvider, useAuth } from './auth/AuthContext'
-import AdminLayout from "./layouts/AdminLayout";   // <--- correct import
+import AdminLayout from "./layouts/AdminLayout";
 
 function Protected({ children, allowedRoles }) {
   const { user } = useAuth()
@@ -30,7 +31,6 @@ export default function App(){
   return (
     <AuthProvider>
       <Routes>
-
         {/* LOGIN */}
         <Route path="/login" element={<Login />} />
 
@@ -79,6 +79,15 @@ export default function App(){
           <Protected allowedRoles={["admin"]}>
             <AdminLayout>
               <AddProduct />
+            </AdminLayout>
+          </Protected>
+        } />
+
+        {/* ================== ADD EMPLOYEE FORM ================== */}
+        <Route path="/add-employee" element={
+          <Protected allowedRoles={["admin"]}>
+            <AdminLayout>
+              <AddEmployeeForm />
             </AdminLayout>
           </Protected>
         } />

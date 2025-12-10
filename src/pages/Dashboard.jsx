@@ -198,7 +198,7 @@ export default function Dashboard() {
 
   return (
     <main className="flex-1 p-4 md:p-8">
-      {/* HEADER */}
+      {/* ========== HEADER SECTION ========== */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
         <div>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800">📊 Dashboard</h1>
@@ -210,21 +210,28 @@ export default function Dashboard() {
           )}
         </div>
 
-        {/* Quick buttons */}
-        <div className="flex flex-wrap gap-2">
+        {/* Quick buttons - GREEN & PURPLE as you wanted */}
+        <div className="flex flex-wrap gap-3">
           <button 
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all shadow-sm flex items-center gap-2"
-            onClick={() => navigate("/add-order")}
+            className="px-5 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all shadow-md flex items-center gap-3 font-medium"
+            onClick={() => navigate("/add-employee")}
           >
-            <span>👨‍💼</span>
-            Add Employee
+            <span className="text-xl">👨‍💼</span>
+            <div className="text-left">
+              <div className="font-bold">Add Employee</div>
+              <div className="text-xs opacity-90">Add staff to database</div>
+            </div>
           </button>
+          
           <button 
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all shadow-sm flex items-center gap-2"
+            className="px-5 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all shadow-md flex items-center gap-3 font-medium"
             onClick={() => navigate("/add-product")}
           >
-            <span>📦</span>
-            Add Product
+            <span className="text-xl">📦</span>
+            <div className="text-left">
+              <div className="font-bold">Add Product</div>
+              <div className="text-xs opacity-90">Add products to inventory</div>
+            </div>
           </button>
         </div>
       </div>
@@ -401,76 +408,76 @@ export default function Dashboard() {
         </div>
 
         {/* Business Summary */}
-<div className="bg-white rounded-xl shadow p-4">
-  <h3 className="font-semibold text-gray-700 mb-4">📋 Business Summary</h3>
-  <div className="space-y-4">
-    {/* Today's Orders */}
-    <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-100">
-      <div className="flex items-center">
-        <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-          <span className="text-blue-600">📅</span>
+        <div className="bg-white rounded-xl shadow p-4">
+          <h3 className="font-semibold text-gray-700 mb-4">📋 Business Summary</h3>
+          <div className="space-y-4">
+            {/* Today's Orders */}
+            <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-100">
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                  <span className="text-blue-600">📅</span>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Today's Orders</p>
+                  <p className="text-2xl font-bold text-gray-800">{daily_summary.orders_count || 0}</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-600">Value</p>
+                <p className="text-lg font-bold text-green-600">₨ {(daily_summary.total_sale || 0).toLocaleString()}</p>
+              </div>
+            </div>
+            
+            {/* Monthly Orders */}
+            <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-100">
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                  <span className="text-green-600">📈</span>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Monthly Orders</p>
+                  <p className="text-2xl font-bold text-gray-800">{monthly_summary.total_orders || 0}</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-600">Value</p>
+                <p className="text-lg font-bold text-green-600">₨ {(monthly_summary.monthly_sales || 0).toLocaleString()}</p>
+              </div>
+            </div>
+            
+            {/* Average Order Value - Calculated */}
+            <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg border border-purple-100">
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                  <span className="text-purple-600">💰</span>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Avg Order Value</p>
+                  <p className="text-2xl font-bold text-gray-800">
+                    ₨ {monthly_summary.total_orders > 0 
+                      ? Math.round(monthly_summary.monthly_sales / monthly_summary.total_orders).toLocaleString()
+                      : '0'}
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Profit Margin */}
+            <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-lg border border-yellow-100">
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
+                  <span className="text-yellow-600">📊</span>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Monthly Profit Margin</p>
+                  <p className="text-2xl font-bold text-gray-800">
+                    {((monthly_summary.monthly_profit_margin || 0) * 100).toFixed(2)}%
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <p className="text-sm font-medium text-gray-600">Today's Orders</p>
-          <p className="text-2xl font-bold text-gray-800">{daily_summary.orders_count || 0}</p>
-        </div>
-      </div>
-      <div className="text-right">
-        <p className="text-sm text-gray-600">Value</p>
-        <p className="text-lg font-bold text-green-600">₨ {(daily_summary.total_sale || 0).toLocaleString()}</p>
-      </div>
-    </div>
-    
-    {/* Monthly Orders */}
-    <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-100">
-      <div className="flex items-center">
-        <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-          <span className="text-green-600">📈</span>
-        </div>
-        <div>
-          <p className="text-sm font-medium text-gray-600">Monthly Orders</p>
-          <p className="text-2xl font-bold text-gray-800">{monthly_summary.total_orders || 0}</p>
-        </div>
-      </div>
-      <div className="text-right">
-        <p className="text-sm text-gray-600">Value</p>
-        <p className="text-lg font-bold text-green-600">₨ {(monthly_summary.monthly_sales || 0).toLocaleString()}</p>
-      </div>
-    </div>
-    
-    {/* Average Order Value - Calculated */}
-    <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg border border-purple-100">
-      <div className="flex items-center">
-        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
-          <span className="text-purple-600">💰</span>
-        </div>
-        <div>
-          <p className="text-sm font-medium text-gray-600">Avg Order Value</p>
-          <p className="text-2xl font-bold text-gray-800">
-            ₨ {monthly_summary.total_orders > 0 
-              ? Math.round(monthly_summary.monthly_sales / monthly_summary.total_orders).toLocaleString()
-              : '0'}
-          </p>
-        </div>
-      </div>
-    </div>
-    
-    {/* Profit Margin */}
-    <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-lg border border-yellow-100">
-      <div className="flex items-center">
-        <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
-          <span className="text-yellow-600">📊</span>
-        </div>
-        <div>
-          <p className="text-sm font-medium text-gray-600">Monthly Profit Margin</p>
-          <p className="text-2xl font-bold text-gray-800">
-            {((monthly_summary.monthly_profit_margin || 0) * 100).toFixed(2)}%
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
       </div>
 
       {/* TOP PERFORMERS */}
