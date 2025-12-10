@@ -212,7 +212,7 @@ export default function RiderDashboard() {
       setMessage({ text: "Updating delivery status...", type: "info" });
       
       // Send to your webhook
-      const response = await fetch("https://n8n.edutechpulse.online/webhook-test/Dilivery-status", {
+      const response = await fetch("https://n8n.edutechpulse.online/webhook/Dilivery-status", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
